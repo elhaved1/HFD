@@ -20,250 +20,75 @@
             --danger: #ef4444;
             --border: #e2e8f0;
         }
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Cairo', sans-serif;
-        }
-        body {
-            background-color: var(--light);
-            color: var(--dark);
-            line-height: 1.6;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
+        body { background-color: var(--light); color: var(--dark); line-height: 1.6; }
 
-        /* شريط الإعلانات العلوي */
         .announcement-bar {
-            background: var(--accent);
-            color: var(--dark);
-            text-align: center;
-            padding: 6px;
-            font-size: 0.85rem;
-            font-weight: 700;
+            background: var(--accent); color: var(--dark); text-align: center; padding: 6px; font-size: 0.85rem; font-weight: 700;
         }
 
-        /* الهيدر العلوي */
         header {
-            background: var(--dark);
-            color: white;
-            padding: 0.8rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            flex-wrap: wrap;
-            gap: 15px;
+            background: var(--dark); color: white; padding: 0.8rem 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.15); flex-wrap: wrap; gap: 15px;
         }
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 900;
-            color: var(--accent);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
-        }
+        .logo { font-size: 1.5rem; font-weight: 900; color: var(--accent); display: flex; align-items: center; gap: 10px; text-decoration: none; }
         
-        /* شريط البحث الفوري */
-        .search-box {
-            position: relative;
-            flex-grow: 1;
-            max-width: 350px;
-        }
+        .search-box { position: relative; flex-grow: 1; max-width: 320px; }
         .search-box input {
-            width: 100%;
-            padding: 8px 15px 8px 35px;
-            border-radius: 20px;
-            border: none;
-            outline: none;
-            font-size: 0.9rem;
-            background: rgba(255,255,255,0.1);
-            color: white;
-            transition: 0.3s;
+            width: 100%; padding: 8px 15px 8px 35px; border-radius: 20px; border: none; outline: none; font-size: 0.9rem; background: rgba(255,255,255,0.1); color: white;
         }
         .search-box input::placeholder { color: #cbd5e1; }
         .search-box input:focus { background: white; color: var(--dark); }
-        .search-box i {
-            position: absolute;
-            left: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #cbd5e1;
-        }
+        .search-box i { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #cbd5e1; }
 
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 15px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            transition: 0.3s;
-            cursor: pointer;
-            font-size: 0.95rem;
-        }
+        nav ul { display: flex; list-style: none; gap: 15px; align-items: center; flex-wrap: wrap; }
+        nav a { color: white; text-decoration: none; font-weight: 600; cursor: pointer; font-size: 0.95rem; transition: 0.3s; }
         nav a:hover, nav a.active { color: var(--accent); }
 
-        .header-actions {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-        .user-badge {
-            background: rgba(255,255,255,0.1);
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            color: var(--accent);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
+        .header-actions { display: flex; gap: 10px; align-items: center; }
+        .user-badge { background: rgba(255,255,255,0.1); padding: 6px 12px; border-radius: 8px; font-size: 0.85rem; color: var(--accent); display: flex; align-items: center; gap: 6px; }
         .cart-btn, .auth-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 8px 14px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: 0.3s;
-            font-size: 0.9rem;
+            background: var(--primary); color: white; border: none; padding: 8px 14px; border-radius: 8px; cursor: pointer; font-weight: 700; display: flex; align-items: center; gap: 6px; font-size: 0.9rem; transition: 0.3s;
         }
         .auth-btn { background: var(--accent); color: var(--dark); }
-        .cart-btn:hover, .auth-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+        .cart-btn:hover, .auth-btn:hover { opacity: 0.9; }
 
-        /* الهيدر الترحيبي */
         .hero {
-            background: linear-gradient(135deg, var(--dark), var(--primary-dark));
-            color: white;
-            text-align: center;
-            padding: 3.5rem 1rem;
+            background: linear-gradient(135deg, var(--dark), var(--primary-dark)); color: white; text-align: center; padding: 3.5rem 1rem;
         }
         .hero h1 { font-size: 2.2rem; margin-bottom: 0.5rem; color: var(--accent); font-weight: 900; }
         .hero p { font-size: 1rem; opacity: 0.9; max-width: 650px; margin: 0 auto; }
 
-        .container {
-            max-width: 1200px;
-            margin: 2.5rem auto;
-            padding: 0 20px;
-        }
+        .container { max-width: 1200px; margin: 2.5rem auto; padding: 0 20px; }
 
-        /* تصنيفات الأقسام */
-        .categories-bar {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 2.5rem;
-            flex-wrap: wrap;
-        }
+        .categories-bar { display: flex; justify-content: center; gap: 10px; margin-bottom: 2.5rem; flex-wrap: wrap; }
         .cat-btn {
-            background: white;
-            border: 2px solid var(--border);
-            padding: 8px 22px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: 700;
-            font-size: 0.95rem;
-            transition: 0.3s;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            background: white; border: 2px solid var(--border); padding: 8px 22px; border-radius: 25px; cursor: pointer; font-weight: 700; font-size: 0.95rem; transition: 0.3s;
         }
-        .cat-btn.active, .cat-btn:hover {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
+        .cat-btn.active, .cat-btn:hover { background: var(--primary); color: white; border-color: var(--primary); }
 
-        /* شبكة المنتجات الاحترافية */
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 25px;
-        }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 25px; }
         .product-card {
-            background: white;
-            border-radius: 14px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
-            display: flex;
-            flex-direction: column;
-            border: 1px solid var(--border);
+            background: white; border-radius: 14px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: transform 0.3s; display: flex; flex-direction: column; border: 1px solid var(--border);
         }
-        .product-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 12px 25px rgba(0,0,0,0.1);
-        }
-        .product-img-wrapper {
-            position: relative;
-            width: 100%;
-            height: 200px;
-            background: #f1f5f9;
-            overflow: hidden;
-        }
-        .product-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
+        .product-card:hover { transform: translateY(-6px); }
+        .product-img-wrapper { position: relative; width: 100%; height: 200px; background: #f1f5f9; overflow: hidden; }
+        .product-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
         .product-card:hover .product-img { transform: scale(1.05); }
         
-        .product-info {
-            padding: 18px;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-        }
-        .product-category-tag {
-            font-size: 0.75rem;
-            background: #e0f2fe;
-            color: var(--primary);
-            padding: 3px 10px;
-            border-radius: 6px;
-            align-self: flex-start;
-            margin-bottom: 8px;
-            font-weight: 700;
-        }
-        .product-title { font-size: 1.15rem; font-weight: 800; margin-bottom: 6px; color: var(--dark); }
+        .product-info { padding: 18px; display: flex; flex-direction: column; flex-grow: 1; }
+        .product-category-tag { font-size: 0.75rem; background: #e0f2fe; color: var(--primary); padding: 3px 10px; border-radius: 6px; align-self: flex-start; margin-bottom: 8px; font-weight: 700; }
+        .product-title { font-size: 1.15rem; font-weight: 800; margin-bottom: 6px; }
         .product-desc { color: var(--gray); font-size: 0.88rem; margin-bottom: 15px; flex-grow: 1; }
         .product-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; border-top: 1px solid var(--border); padding-top: 12px; }
         .product-price { font-size: 1.2rem; font-weight: 900; color: var(--primary); }
-        .btn-add {
-            background: var(--dark);
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 700;
-            font-size: 0.9rem;
-            transition: 0.3s;
-        }
+        .btn-add { background: var(--dark); color: white; border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 0.9rem; transition: 0.3s; }
         .btn-add:hover { background: var(--primary); }
 
-        /* الأقسام الجانبية */
         .page-section { display: none; }
         .page-section.active-page { display: block; }
 
         .maintenance-box, .my-orders-box {
-            background: white;
-            border-radius: 16px;
-            padding: 2.5rem;
-            max-width: 750px;
-            margin: 0 auto;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            border: 1px solid var(--border);
+            background: white; border-radius: 16px; padding: 2.5rem; max-width: 750px; margin: 0 auto; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid var(--border);
         }
         .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 15px; }
         .form-group label { font-weight: 700; font-size: 0.95rem; }
@@ -273,35 +98,23 @@
         .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--primary); }
         
         .btn-submit {
-            background: var(--primary); color: white; border: none; padding: 12px; border-radius: 8px;
-            font-size: 1rem; font-weight: 700; cursor: pointer; width: 100%; transition: 0.3s;
+            background: var(--primary); color: white; border: none; padding: 12px; border-radius: 8px; font-size: 1rem; font-weight: 700; cursor: pointer; width: 100%; transition: 0.3s;
         }
         .btn-submit:hover { background: var(--primary-dark); }
 
-        /* النوافذ المنبثقة والسلة */
         .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6); display: none; z-index: 2000; justify-content: center; align-items: center; padding: 15px;
-            backdrop-filter: blur(4px);
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: none; z-index: 2000; justify-content: center; align-items: center; padding: 15px; backdrop-filter: blur(4px);
         }
         .cart-overlay { justify-content: flex-end; padding: 0; }
         
-        .cart-drawer {
-            background: white; width: 100%; max-width: 450px; height: 100%;
-            padding: 2rem; display: flex; flex-direction: column; overflow-y: auto;
-            animation: slideIn 0.3s ease;
-        }
-        @keyframes slideIn { from { transform: translateX(-100%); } to { transform: translateX(0); } }
-
-        .auth-card {
-            background: white; width: 100%; max-width: 420px; padding: 2.5rem; border-radius: 16px; box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-        }
+        .cart-drawer { background: white; width: 100%; max-width: 450px; height: 100%; padding: 2rem; display: flex; flex-direction: column; overflow-y: auto; }
+        .auth-card { background: white; width: 100%; max-width: 420px; padding: 2.5rem; border-radius: 16px; box-shadow: 0 15px 35px rgba(0,0,0,0.2); }
         
         .cart-header, .auth-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-bottom: 18px; }
-        .close-modal { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--gray); transition: 0.3s; }
+        .close-modal { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--gray); }
         .close-modal:hover { color: var(--danger); }
 
-        .cart-items { flex-grow: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; margin-bottom: 15px; max-height: 220px; }
+        .cart-items { flex-grow: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; margin-bottom: 15px; max-height: 200px; }
         .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; background: #f8fafc; border-radius: 8px; border: 1px solid var(--border); }
         .remove-item { background: none; border: none; color: var(--danger); cursor: pointer; font-size: 1.1rem; }
         .cart-total { font-size: 1.2rem; font-weight: 800; display: flex; justify-content: space-between; margin-bottom: 15px; padding-top: 12px; border-top: 1px solid var(--border); }
@@ -309,8 +122,8 @@
         .checkout-form { display: flex; flex-direction: column; gap: 12px; background: #f1f5f9; padding: 15px; border-radius: 10px; }
         .bank-info-box { background: #eff6ff; border: 1px solid #bae6fd; padding: 12px; border-radius: 8px; display: none; font-size: 0.9rem; }
         .bank-info-box span { font-weight: 900; color: var(--primary-dark); }
+        .deposit-alert { background: #fef3c7; border: 1px solid #f59e0b; color: #b45309; padding: 10px; border-radius: 8px; font-size: 0.85rem; display: none; font-weight: 600; }
 
-        /* جداول طلبات الزبون */
         table { width: 100%; border-collapse: collapse; margin-top: 10px; text-align: right; }
         th, td { padding: 12px; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
         th { background: #f1f5f9; font-weight: 700; }
@@ -318,23 +131,19 @@
 
         footer { background: var(--dark); color: white; text-align: center; padding: 2.5rem 1rem; margin-top: 4rem; font-size: 0.95rem; }
         footer a { color: var(--accent); text-decoration: none; font-weight: 700; }
-        footer a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
 
-    <!-- شريط الإعلانات -->
     <div class="announcement-bar">
         🔥 عروض حصرية على أحدث الهواتف الذكية في نواكشوط مع ضمان أصلي وتوصيل سريع!
     </div>
 
-    <!-- الهيدر الاحترافي -->
     <header>
         <a href="#" class="logo" onclick="switchTab('store')"><i class="fa-solid fa-mobile-screen-button"></i> الحافظ فون</a>
         
-        <!-- شريط البحث الفوري -->
         <div class="search-box">
-            <input type="text" id="search-input" placeholder="ابحث عن هاتف، إكسسوار، شاحن..." oninput="handleSearch()">
+            <input type="text" id="search-input" placeholder="ابحث عن هاتف، إكسسوار..." oninput="handleSearch()">
             <i class="fa-solid fa-magnifying-glass"></i>
         </div>
 
@@ -356,45 +165,44 @@
         </div>
     </header>
 
-    <!-- الهيدر الترحيبي -->
     <div class="hero">
         <h1>محل الحافظ فون</h1>
         <p>وجهتك الموثوقة لأحدث الهواتف الذكية، الملحقات الأصلية، وخدمات الصيانة الاحترافية في موريتانيا.</p>
     </div>
 
-    <!-- صفحة المتجر -->
+    <!-- المتجر -->
     <div id="store-page" class="page-section active-page container">
         <div class="categories-bar" id="categories-bar"></div>
         <div class="products-grid" id="products-container"></div>
     </div>
 
-    <!-- صفحة الصيانة -->
+    <!-- الصيانة -->
     <div id="maintenance-page" class="page-section container">
         <div class="maintenance-box">
             <h2 style="text-align:center; margin-bottom: 1.5rem; color: var(--dark);"><i class="fa-solid fa-screwdriver-wrench" style="color:var(--accent)"></i> حجز موعد صيانة احترافية</h2>
             <form onsubmit="submitMaintenance(event)">
                 <div class="form-group">
                     <label>الاسم الكامل</label>
-                    <input type="text" id="m-name" required placeholder="ادخل اسمك الكريم">
+                    <input type="text" id="m-name" required placeholder="اسمك الكريم">
                 </div>
                 <div class="form-group">
                     <label>رقم الهاتف</label>
-                    <input type="tel" id="m-phone" required placeholder="مثال: 36xxxxxx أو 46xxxxxx">
+                    <input type="tel" id="m-phone" required placeholder="مثال: 36xxxxxx">
                 </div>
                 <div class="form-group">
-                    <label>نوع الجهاز ورقم الموديل</label>
+                    <label>نوع الجهاز والموديل</label>
                     <input type="text" id="m-device" required placeholder="مثال: iPhone 13 Pro Max">
                 </div>
                 <div class="form-group">
-                    <label>وصف العطل باختصار</label>
+                    <label>وصف العطل</label>
                     <textarea id="m-desc" rows="3" required placeholder="اشرح المشكلة التقنية..."></textarea>
                 </div>
-                <button type="submit" class="btn-submit">تأكيد وإرسال طلب الصيانة</button>
+                <button type="submit" class="btn-submit">تأكيد طلب الصيانة</button>
             </form>
         </div>
     </div>
 
-    <!-- صفحة طلبات الزبون الخاصة -->
+    <!-- طلباتي -->
     <div id="my-orders-page" class="page-section container">
         <div class="my-orders-box">
             <h2 style="margin-bottom: 1.5rem;"><i class="fa-solid fa-box-open" style="color:var(--primary)"></i> طلباتي السابقة ومتابعتها</h2>
@@ -405,8 +213,8 @@
                             <th>رقم الطلب</th>
                             <th>التاريخ</th>
                             <th>المنتجات</th>
-                            <th>المبلغ الكلي</th>
-                            <th>طريقة الدفع</th>
+                            <th>المبلغ</th>
+                            <th>الدفع</th>
                             <th>الحالة</th>
                         </tr>
                     </thead>
@@ -416,21 +224,21 @@
         </div>
     </div>
 
-    <!-- نافذة تسجيل الدخول / حساب الزبون -->
+    <!-- نافذة تسجيل الدخول -->
     <div class="modal-overlay" id="auth-modal">
         <div class="auth-card">
             <div class="auth-header">
-                <h3>تسجيل الدخول / إنشاء حساب</h3>
+                <h3>تسجيل الدخول / حساب جديد</h3>
                 <button class="close-modal" onclick="closeAuthModal()">&times;</button>
             </div>
             <form onsubmit="handleAuth(event)" style="display: flex; flex-direction: column; gap: 14px;">
                 <div class="form-group">
                     <label>اسم المستخدم</label>
-                    <input type="text" id="auth-username" required placeholder="ادخل اسمك الكامل">
+                    <input type="text" id="auth-username" required placeholder="اسمك الكامل">
                 </div>
                 <div class="form-group">
                     <label>رقم الهاتف</label>
-                    <input type="tel" id="auth-phone" required placeholder="رقم هاتفك للتواصل">
+                    <input type="tel" id="auth-phone" required placeholder="رقم هاتفك">
                 </div>
                 <div class="form-group">
                     <label>كلمة المرور</label>
@@ -441,7 +249,7 @@
         </div>
     </div>
 
-    <!-- سلة المشتريات وإتمام الطلب -->
+    <!-- السلة -->
     <div class="modal-overlay cart-overlay" id="cart-overlay" onclick="if(event.target === this) toggleCart()">
         <div class="cart-drawer">
             <div class="cart-header">
@@ -465,6 +273,10 @@
                     </select>
                 </div>
 
+                <div class="deposit-alert" id="deposit-alert">
+                    <i class="fa-solid fa-triangle-exclamation"></i> تنبيه: يتطلب الدفع عند الاستلام إرسال عربون لا يقل عن 100 أوقية وإرفاق وصل التحويل أدناه.
+                </div>
+
                 <div class="form-group" id="bank-app-group" style="margin-bottom: 8px;">
                     <label style="font-size: 0.85rem;">اختر التطبيق المحول منه</label>
                     <select id="c-bank-app" onchange="updateBankNumber()" style="padding: 8px; font-size: 0.85rem;">
@@ -485,8 +297,8 @@
                 </div>
 
                 <div class="form-group" id="receipt-group" style="margin-bottom: 8px;">
-                    <label style="font-size: 0.85rem;">رفع وصل الدفع / التحويل</label>
-                    <input type="file" id="c-receipt" accept="image/*" style="padding: 4px; font-size: 0.8rem;">
+                    <label style="font-size: 0.85rem;">رفع وصل الدفع / التحويل (أو العربون)</label>
+                    <input type="file" id="c-receipt" accept="image/*" style="padding: 4px; font-size: 0.8rem;" required>
                 </div>
 
                 <button type="submit" class="btn-submit" style="padding: 10px; font-size: 0.95rem; margin-top: 5px;">تأكيد وإرسال الطلب</button>
@@ -494,7 +306,6 @@
         </div>
     </div>
 
-    <!-- الفوتر الاحترافي -->
     <footer>
         <p>جميع الحقوق محفوظة &copy; 2026 الحافظ فون - نواكشوط، موريتانيا.</p>
         <p style="margin-top: 10px;"><a href="admin.html"><i class="fa-solid fa-lock"></i> لوحة تحكم الإدارة الحصرية</a></p>
@@ -679,14 +490,17 @@
             const paymentType = document.getElementById('c-payment').value;
             const bankGroup = document.getElementById('bank-app-group');
             const bankInfoBox = document.getElementById('bank-info-box');
+            const depositAlert = document.getElementById('deposit-alert');
 
             if (paymentType.includes('تطبيق')) {
                 bankGroup.style.display = 'block';
                 bankInfoBox.style.display = 'block';
+                depositAlert.style.display = 'none';
                 updateBankNumber();
             } else {
                 bankGroup.style.display = 'none';
                 bankInfoBox.style.display = 'none';
+                depositAlert.style.display = 'block';
             }
         }
 
@@ -711,7 +525,7 @@
                     date: new Date().toLocaleString('ar-MR'),
                     customerName: currentUser.username,
                     customerPhone: currentUser.phone,
-                    paymentType: `${payment} ${payment.includes('تطبيق') ? '('+bankApp+')' : ''}`,
+                    paymentType: `${payment} ${payment.includes('تطبيق') ? '('+bankApp+')' : '(عربون 100 أوقية)'}`,
                     senderPhone: senderPhone || currentUser.phone,
                     items: [...cart],
                     totalAmount: total,
@@ -734,7 +548,7 @@
                 reader.onload = (e) => saveOrder(e.target.result);
                 reader.readAsDataURL(receiptInput.files[0]);
             } else {
-                saveOrder('لم يتم إرفاق وصل');
+                alert('الرجاء رفع صورة وصل التحويل أو العربون لإتمام الطلب.');
             }
         }
 
