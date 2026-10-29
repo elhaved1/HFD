@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم - الحافظ فون</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0284c7;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+        }
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+        }
+        header {
+            background: var(--dark);
+            color: white;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: var(--warning);
+        }
+        .container {
+            max-width: 1300px;
+            margin: 2rem auto;
+            padding: 0 20px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 2.5rem;
+        }
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .stat-card h4 {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+        .stat-card span {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--primary);
+        }
+        
+        .section-box {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+        .section-box h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--dark);
+        }
+
+        /* الجداول */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: right;
+        }
+        th, td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 0.95rem;
+        }
+        th {
+            background: #f1f5f9;
+            color: var(--dark);
+            font-weight: 700;
+        }
+        tr:hover {
+            background: #f8fafc;
+        }
+        .badge {
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+        .badge.pending { background: #fef3c7; color: #b45309; }
+        .badge.success { background: #d1fae5; color: #047857; }
+        
+        .btn-action {
+            padding: 5px 10px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-left: 5px;
+        }
+        .btn-view { background: var(--primary); color: white; }
+        .btn-del { background: var(--danger); color: white; }
+
+        /* معاينة صورة الوصل المرفوع */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 3000;
+        }
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+        }
+        .modal-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        .close-modal {
+            background: var(--dark);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo"><i class="fa-solid fa-shield-halved"></i> لوحة تحكم الحافظ فون</div>
+        <div>
+            <a href="index.html" style="color: white; text-decoration: none; font-weight: 600;"><i class="fa-solid fa-store"></i> العودة للمتجر</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- الإحصائيات السريعة -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h4>إجمالي الطلبات الواردة</h4>
+                <span id="total-orders-count">0</span>
+            </div>
+            <div class="stat-card">
+                <h4>طلبات الصيانة الجديدة</h4>
+                <span id="total-maint-count" style="color: var(--warning);">0</span>
+            </div>
+        </div>
+
+        <!-- جدول طلبات المتجر والمشتريات -->
+        <div class="section-box">
+            <h3><i class="fa-solid fa-bag-shopping" style="color: var(--primary);"></i> طلبات الهواتف والمستلزمات (مع متابعة العربون)</h3>
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>رقم الطلب</th>
+                            <th>التاريخ</th>
+                            <th>الزبون ورقم الهاتف</th>
+                            <th>المنتجات المطلوبة</th>
+                            <th>المبلغ الكلي</th>
+                            <th>الدفع / العربون</th>
+                            <th>وصل الدفع</th>
+                            <th>الحالة</th>
+                            <th>الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orders-table-body">
+                        <!-- تملأ ديناميكياً -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- جدول طلبات الصيانة -->
+        <div class="section-box">
+            <h3><i class="fa-solid fa-screwdriver-wrench" style="color: var(--warning);"></i> طلبات قسم الصيانة</h3>
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>رقم الطلب</th>
+                            <th>التاريخ</th>
+                            <th>الزبون ورقم الهاتف</th>
+                            <th>الجهاز</th>
+                            <th>العطل</th>
+                            <th>الحالة</th>
+                            <th>الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="maint-table-body">
+                        <!-- تملأ ديناميكياً -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة منبثقة لعرض وصل الدفع -->
+    <div class="modal" id="receipt-modal">
+        <div class="modal-content">
+            <h3>صورة وصل دفع العربون</h3>
+            <div id="modal-img-container"></div>
+            <button class="close-modal" onclick="closeModal()">إغلاق</button>
+        </div>
+    </div>
+
+    <script>
+        // تحميل وعرض بيانات الطلبات من localStorage
+        function loadAdminData() {
+            const orders = JSON.parse(localStorage.getItem('hafiz_orders')) || [];
+            const maint = JSON.parse(localStorage.getItem('hafiz_maint')) || [];
+
+            document.getElementById('total-orders-count').innerText = orders.length;
+            document.getElementById('total-maint-count').innerText = maint.length;
+
+            // جدول طلبات المتجر
+            const ordersBody = document.getElementById('orders-table-body');
+            if (orders.length === 0) {
+                ordersBody.innerHTML = `<tr><td colspan="9" style="text-align:center; color: var(--gray);">لا توجد طلبات جديدة حتى الآن</td></tr>`;
+            } else {
+                ordersBody.innerHTML = orders.map((o, index) => `
+                    <tr>
+                        <td><strong>${o.id}</strong></td>
+                        <td>${o.date}</td>
+                        <td>${o.customerName}<br><span style="color: var(--gray); font-size:0.85rem;">${o.customerPhone}</span></td>
+                        <td>${o.items.map(i => `${i.name} (${i.price} أوقية)`).join('<br>')}</td>
+                        <td><strong>${o.totalAmount.toLocaleString()} أوقية</strong></td>
+                        <td>${o.paymentType}</td>
+                        <td>
+                            ${o.receipt.startsWith('data:image') ? `<button class="btn-action btn-view" onclick="viewReceipt('${o.receipt}')">عرض الوصل</button>` : `<span style="color:var(--gray)">${o.receipt}</span>`}
+                        </td>
+                        <td><span class="badge pending">${o.status}</span></td>
+                        <td>
+                            <button class="btn-action btn-view" onclick="toggleOrderStatus(${index})">تغيير الحالة</button>
+                            <button class="btn-action btn-del" onclick="deleteOrder(${index})">حذف</button>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+
+            // جدول طلبات الصيانة
+            const maintBody = document.getElementById('maint-table-body');
+            if (maint.length === 0) {
+                maintBody.innerHTML = `<tr><td colspan="7" style="text-align:center; color: var(--gray);">لا توجد طلبات صيانة حالياً</td></tr>`;
+            } else {
+                maintBody.innerHTML = maint.map((m, index) => `
+                    <tr>
+                        <td><strong>${m.id}</strong></td>
+                        <td>${m.date}</td>
+                        <td>${m.customerName}<br><span style="color: var(--gray); font-size:0.85rem;">${m.customerPhone}</span></td>
+                        <td>${m.device}</td>
+                        <td>${m.problem}</td>
+                        <td><span class="badge pending">${m.status}</span></td>
+                        <td>
+                            <button class="btn-action btn-del" onclick="deleteMaint(${index})">حذف</button>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+        }
+
+        // عرض صورة الوصل في نافذة منبثقة
+        function viewReceipt(imgSrc) {
+            const container = document.getElementById('modal-img-container');
+            container.innerHTML = `<img src="${imgSrc}" alt="وصل العربون">`;
+            document.getElementById('receipt-modal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('receipt-modal').style.display = 'none';
+        }
+
+        // تبديل حالة الطلب
+        function toggleOrderStatus(index) {
+            let orders = JSON.parse(localStorage.getItem('hafiz_orders')) || [];
+            if (orders[index].status === 'قيد المعالجة') {
+                orders[index].status = 'تم التأكيد والشحن';
+            } else {
+                orders[index].status = 'قيد المعالجة';
+            }
+            localStorage.setItem('hafiz_orders', JSON.stringify(orders));
+            loadAdminData();
+        }
+
+        // حذف طلب متجر
+        function deleteOrder(index) {
+            if (confirm('هل أنت متأكد من حذف هذا الطلب؟')) {
+                let orders = JSON.parse(localStorage.getItem('hafiz_orders')) || [];
+                orders.splice(index, 1);
+                localStorage.setItem('hafiz_orders', JSON.stringify(orders));
+                loadAdminData();
+            }
+        }
+
+        // حذف طلب صيانة
+        function deleteMaint(index) {
+            if (confirm('هل أنت متأكد من حذف طلب الصيانة هذا؟')) {
+                let maint = JSON.parse(localStorage.getItem('hafiz_maint')) || [];
+                maint.splice(index, 1);
+                localStorage.setItem('hafiz_maint', JSON.stringify(maint));
+                loadAdminData();
+            }
+        }
+
+        // التشغيل التلقائي عند فتح الصفحة
+        loadAdminData();
+    </script>
+</body>
+</html>
