@@ -297,7 +297,7 @@
             </div>
 
             <form class="checkout-form" onsubmit="checkout(event)">
-                <h4 style="font-size:0.95rem; margin-bottom: 2px;">معلومات الزبون والدفع</h4>
+                <h4 style="font-size:0.95rem; margin-bottom: 2px;">معلومات الدفع</h4>
                 <div class="form-group" style="margin-bottom: 8px;">
                     <label style="font-size: 0.85rem;">الاسم الكامل</label>
                     <input type="text" id="c-name" required style="padding: 7px; font-size: 0.85rem;">
@@ -309,7 +309,7 @@
                 <div class="form-group" style="margin-bottom: 8px;">
                     <label style="font-size: 0.85rem;">طريقة الدفع</label>
                     <select id="c-payment" onchange="handlePaymentSelection()" required style="padding: 7px; font-size: 0.85rem;">
-                        <option value="تطبيق بنكي">الدفع عبر التطبيق المصرفي</option>
+                        <option value="تطبيق بنكيلي ">الدفع عبر التطبيق المصرفي</option>
                         <option value="عند الاستلام">الدفع عند الاستلام (يشترط عربون 100 أوقية)</option>
                     </select>
                 </div>
@@ -320,7 +320,7 @@
                     <select id="c-bank-app" onchange="updateBankNumber()" style="padding: 7px; font-size: 0.85rem;">
                         <option value="بنكيلي (BANKILY)">بنكيلي (BANKILY)</option>
                         <option value="السداد (SEDAD)">السداد (SEDAD)</option>
-                        <option value="مصرفي  (MASRVI)">ماسرف (MASRVI)</option>
+                        <option value="مصرفي  (MASRVI)">مصرفي (MASRVI)</option>
                         <option value="السحب السريع / موريس بنك">السحب السريع (Maurisbank)</option>
                     </select>
                 </div>
@@ -353,7 +353,7 @@
         // الأرقام الخاصة بالتطبيقات التابعة لك (يمكنك تعديلها هنا)
         const myAppPhones = {
             "بنكيلي (BANKILY)": "26396688",
-            "السداد (CEDAR)": "26396688",
+            "السداد (SEDAD)": "26396688",
             "مصرفي  (MASRVI)": "43620063",
             "السحب السريع / موريس بنك": "000005"
         };
