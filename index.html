@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>الحافظ فون - الهواتف ومستلزماتها والصيانة</title>
+    <!-- Google Fonts Cairo -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -15,6 +17,8 @@
             --light: #f8fafc;
             --gray: #64748b;
             --success: #10b981;
+            --danger: #ef4444;
+            --border: #e2e8f0;
         }
         * {
             box-sizing: border-box;
@@ -27,28 +31,69 @@
             color: var(--dark);
             line-height: 1.6;
         }
+
+        /* شريط الإعلانات العلوي */
+        .announcement-bar {
+            background: var(--accent);
+            color: var(--dark);
+            text-align: center;
+            padding: 6px;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        /* الهيدر العلوي */
         header {
             background: var(--dark);
             color: white;
-            padding: 1rem 5%;
+            padding: 0.8rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             flex-wrap: wrap;
             gap: 15px;
         }
         .logo {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             font-weight: 900;
             color: var(--accent);
             display: flex;
             align-items: center;
             gap: 10px;
+            text-decoration: none;
         }
+        
+        /* شريط البحث الفوري */
+        .search-box {
+            position: relative;
+            flex-grow: 1;
+            max-width: 350px;
+        }
+        .search-box input {
+            width: 100%;
+            padding: 8px 15px 8px 35px;
+            border-radius: 20px;
+            border: none;
+            outline: none;
+            font-size: 0.9rem;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            transition: 0.3s;
+        }
+        .search-box input::placeholder { color: #cbd5e1; }
+        .search-box input:focus { background: white; color: var(--dark); }
+        .search-box i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #cbd5e1;
+        }
+
         nav ul {
             display: flex;
             list-style: none;
@@ -64,9 +109,8 @@
             cursor: pointer;
             font-size: 0.95rem;
         }
-        nav a:hover, nav a.active {
-            color: var(--accent);
-        }
+        nav a:hover, nav a.active { color: var(--accent); }
+
         .header-actions {
             display: flex;
             gap: 10px;
@@ -74,16 +118,19 @@
         }
         .user-badge {
             background: rgba(255,255,255,0.1);
-            padding: 5px 10px;
-            border-radius: 6px;
+            padding: 6px 12px;
+            border-radius: 8px;
             font-size: 0.85rem;
             color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
         .cart-btn, .auth-btn {
             background: var(--primary);
             color: white;
             border: none;
-            padding: 7px 12px;
+            padding: 8px 14px;
             border-radius: 8px;
             cursor: pointer;
             font-weight: 700;
@@ -94,39 +141,42 @@
             font-size: 0.9rem;
         }
         .auth-btn { background: var(--accent); color: var(--dark); }
-        .cart-btn:hover { background: var(--primary-dark); }
+        .cart-btn:hover, .auth-btn:hover { opacity: 0.9; transform: translateY(-1px); }
 
+        /* الهيدر الترحيبي */
         .hero {
             background: linear-gradient(135deg, var(--dark), var(--primary-dark));
             color: white;
             text-align: center;
-            padding: 2.5rem 1rem;
+            padding: 3.5rem 1rem;
         }
-        .hero h1 { font-size: 1.8rem; margin-bottom: 0.5rem; color: var(--accent); }
-        .hero p { font-size: 0.95rem; opacity: 0.9; max-width: 600px; margin: 0 auto; }
+        .hero h1 { font-size: 2.2rem; margin-bottom: 0.5rem; color: var(--accent); font-weight: 900; }
+        .hero p { font-size: 1rem; opacity: 0.9; max-width: 650px; margin: 0 auto; }
 
         .container {
             max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 15px;
+            margin: 2.5rem auto;
+            padding: 0 20px;
         }
 
+        /* تصنيفات الأقسام */
         .categories-bar {
             display: flex;
             justify-content: center;
-            gap: 8px;
-            margin-bottom: 2rem;
+            gap: 10px;
+            margin-bottom: 2.5rem;
             flex-wrap: wrap;
         }
         .cat-btn {
             background: white;
-            border: 2px solid #e2e8f0;
-            padding: 6px 16px;
-            border-radius: 20px;
+            border: 2px solid var(--border);
+            padding: 8px 22px;
+            border-radius: 25px;
             cursor: pointer;
             font-weight: 700;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             transition: 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
         }
         .cat-btn.active, .cat-btn:hover {
             background: var(--primary);
@@ -134,29 +184,43 @@
             border-color: var(--primary);
         }
 
+        /* شبكة المنتجات الاحترافية */
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
         }
         .product-card {
             background: white;
-            border-radius: 12px;
+            border-radius: 14px;
             overflow: hidden;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
-            transition: transform 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
             display: flex;
             flex-direction: column;
+            border: 1px solid var(--border);
         }
-        .product-card:hover { transform: translateY(-4px); }
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+        }
+        .product-img-wrapper {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            background: #f1f5f9;
+            overflow: hidden;
+        }
         .product-img {
             width: 100%;
-            height: 180px;
+            height: 100%;
             object-fit: cover;
-            background: #e2e8f0;
+            transition: transform 0.5s;
         }
+        .product-card:hover .product-img { transform: scale(1.05); }
+        
         .product-info {
-            padding: 15px;
+            padding: 18px;
             display: flex;
             flex-direction: column;
             flex-grow: 1;
@@ -165,94 +229,126 @@
             font-size: 0.75rem;
             background: #e0f2fe;
             color: var(--primary);
-            padding: 2px 8px;
-            border-radius: 4px;
+            padding: 3px 10px;
+            border-radius: 6px;
             align-self: flex-start;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             font-weight: 700;
         }
-        .product-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 6px; }
-        .product-desc { color: var(--gray); font-size: 0.85rem; margin-bottom: 15px; flex-grow: 1; }
-        .product-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
-        .product-price { font-size: 1.1rem; font-weight: 900; color: var(--primary); }
+        .product-title { font-size: 1.15rem; font-weight: 800; margin-bottom: 6px; color: var(--dark); }
+        .product-desc { color: var(--gray); font-size: 0.88rem; margin-bottom: 15px; flex-grow: 1; }
+        .product-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; border-top: 1px solid var(--border); padding-top: 12px; }
+        .product-price { font-size: 1.2rem; font-weight: 900; color: var(--primary); }
         .btn-add {
             background: var(--dark);
             color: white;
             border: none;
-            padding: 6px 12px;
+            padding: 8px 16px;
             border-radius: 8px;
             cursor: pointer;
-            font-weight: 600;
+            font-weight: 700;
             font-size: 0.9rem;
             transition: 0.3s;
         }
         .btn-add:hover { background: var(--primary); }
 
+        /* الأقسام الجانبية */
         .page-section { display: none; }
         .page-section.active-page { display: block; }
 
-        .maintenance-box {
+        .maintenance-box, .my-orders-box {
             background: white;
             border-radius: 16px;
-            padding: 2rem 1.5rem;
-            max-width: 650px;
+            padding: 2.5rem;
+            max-width: 750px;
             margin: 0 auto;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
         }
-        .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
-        .form-group label { font-weight: 700; font-size: 0.9rem; }
+        .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 15px; }
+        .form-group label { font-weight: 700; font-size: 0.95rem; }
         .form-group input, .form-group select, .form-group textarea {
-            padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem; outline: none; width: 100%;
+            padding: 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 0.95rem; outline: none; width: 100%; transition: border-color 0.3s;
         }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--primary); }
+        
         .btn-submit {
             background: var(--primary); color: white; border: none; padding: 12px; border-radius: 8px;
             font-size: 1rem; font-weight: 700; cursor: pointer; width: 100%; transition: 0.3s;
         }
         .btn-submit:hover { background: var(--primary-dark); }
 
-        /* سلة التسوق والنوافذ المنبثقة */
+        /* النوافذ المنبثقة والسلة */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.6); display: none; z-index: 2000; justify-content: center; align-items: center; padding: 15px;
+            backdrop-filter: blur(4px);
         }
         .cart-overlay { justify-content: flex-end; padding: 0; }
         
         .cart-drawer {
-            background: white; width: 100%; max-width: 420px; height: 100%;
-            padding: 1.5rem; display: flex; flex-direction: column; overflow-y: auto;
+            background: white; width: 100%; max-width: 450px; height: 100%;
+            padding: 2rem; display: flex; flex-direction: column; overflow-y: auto;
+            animation: slideIn 0.3s ease;
         }
+        @keyframes slideIn { from { transform: translateX(-100%); } to { transform: translateX(0); } }
+
         .auth-card {
-            background: white; width: 100%; max-width: 400px; padding: 2rem; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            background: white; width: 100%; max-width: 420px; padding: 2.5rem; border-radius: 16px; box-shadow: 0 15px 35px rgba(0,0,0,0.2);
         }
         
-        .cart-header, .auth-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 15px; }
-        .close-modal { background: none; border: none; font-size: 1.4rem; cursor: pointer; color: var(--gray); }
-        .cart-items { flex-grow: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; max-height: 180px; }
-        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 8px; background: #f8fafc; border-radius: 6px; }
-        .remove-item { background: none; border: none; color: #ef4444; cursor: pointer; }
-        .cart-total { font-size: 1.1rem; font-weight: 800; display: flex; justify-content: space-between; margin-bottom: 15px; padding-top: 10px; border-top: 1px solid #e2e8f0; }
+        .cart-header, .auth-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-bottom: 18px; }
+        .close-modal { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--gray); transition: 0.3s; }
+        .close-modal:hover { color: var(--danger); }
 
-        .checkout-form { display: flex; flex-direction: column; gap: 10px; background: #f1f5f9; padding: 12px; border-radius: 8px; }
-        .bank-info-box { background: #eff6ff; border: 1px solid #bae6fd; padding: 10px; border-radius: 6px; display: none; font-size: 0.85rem; }
+        .cart-items { flex-grow: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; margin-bottom: 15px; max-height: 220px; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; background: #f8fafc; border-radius: 8px; border: 1px solid var(--border); }
+        .remove-item { background: none; border: none; color: var(--danger); cursor: pointer; font-size: 1.1rem; }
+        .cart-total { font-size: 1.2rem; font-weight: 800; display: flex; justify-content: space-between; margin-bottom: 15px; padding-top: 12px; border-top: 1px solid var(--border); }
+
+        .checkout-form { display: flex; flex-direction: column; gap: 12px; background: #f1f5f9; padding: 15px; border-radius: 10px; }
+        .bank-info-box { background: #eff6ff; border: 1px solid #bae6fd; padding: 12px; border-radius: 8px; display: none; font-size: 0.9rem; }
         .bank-info-box span { font-weight: 900; color: var(--primary-dark); }
 
-        footer { background: var(--dark); color: white; text-align: center; padding: 2rem 1rem; margin-top: 3rem; font-size: 0.9rem; }
-        footer a { color: var(--accent); text-decoration: none; }
+        /* جداول طلبات الزبون */
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; text-align: right; }
+        th, td { padding: 12px; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
+        th { background: #f1f5f9; font-weight: 700; }
+        .badge { padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; background: #fef3c7; color: #b45309; }
+
+        footer { background: var(--dark); color: white; text-align: center; padding: 2.5rem 1rem; margin-top: 4rem; font-size: 0.95rem; }
+        footer a { color: var(--accent); text-decoration: none; font-weight: 700; }
+        footer a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
 
+    <!-- شريط الإعلانات -->
+    <div class="announcement-bar">
+        🔥 عروض حصرية على أحدث الهواتف الذكية في نواكشوط مع ضمان أصلي وتوصيل سريع!
+    </div>
+
+    <!-- الهيدر الاحترافي -->
     <header>
-        <div class="logo"><i class="fa-solid fa-mobile-screen-button"></i> الحافظ فون</div>
+        <a href="#" class="logo" onclick="switchTab('store')"><i class="fa-solid fa-mobile-screen-button"></i> الحافظ فون</a>
+        
+        <!-- شريط البحث الفوري -->
+        <div class="search-box">
+            <input type="text" id="search-input" placeholder="ابحث عن هاتف، إكسسوار، شاحن..." oninput="handleSearch()">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+
         <nav>
             <ul>
                 <li><a onclick="switchTab('store')" id="nav-store" class="active">الرئيسية</a></li>
-                <li><a onclick="switchTab('maintenance')" id="nav-maint">قسم الصيانة</a></li>
+                <li><a onclick="switchTab('maintenance')" id="nav-maint">الصيانة</a></li>
+                <li><a onclick="switchTab('my-orders')" id="nav-orders" style="display:none;">طلباتي</a></li>
             </ul>
         </nav>
+
         <div class="header-actions">
             <div id="user-info-area">
-                <button class="auth-btn" onclick="openAuthModal()"><i class="fa-solid fa-user"></i> تسجيل الدخول / إنشاء حساب</button>
+                <button class="auth-btn" onclick="openAuthModal()"><i class="fa-solid fa-user"></i> حسابي</button>
             </div>
             <button class="cart-btn" onclick="toggleCart()">
                 <i class="fa-solid fa-cart-shopping"></i> (<span id="cart-count">0</span>)
@@ -260,9 +356,10 @@
         </div>
     </header>
 
+    <!-- الهيدر الترحيبي -->
     <div class="hero">
         <h1>محل الحافظ فون</h1>
-        <p>الهواتف الذكية الأصلية، الإكسسوارات، وخدمات الصيانة في نواكشوط.</p>
+        <p>وجهتك الموثوقة لأحدث الهواتف الذكية، الملحقات الأصلية، وخدمات الصيانة الاحترافية في موريتانيا.</p>
     </div>
 
     <!-- صفحة المتجر -->
@@ -274,37 +371,59 @@
     <!-- صفحة الصيانة -->
     <div id="maintenance-page" class="page-section container">
         <div class="maintenance-box">
-            <h2 style="text-align:center; margin-bottom: 1.5rem; color: var(--dark);"><i class="fa-solid fa-screwdriver-wrench text-warning"></i> حجز موعد صيانة</h2>
+            <h2 style="text-align:center; margin-bottom: 1.5rem; color: var(--dark);"><i class="fa-solid fa-screwdriver-wrench" style="color:var(--accent)"></i> حجز موعد صيانة احترافية</h2>
             <form onsubmit="submitMaintenance(event)">
                 <div class="form-group">
                     <label>الاسم الكامل</label>
-                    <input type="text" id="m-name" required placeholder="اسمك الكريم">
+                    <input type="text" id="m-name" required placeholder="ادخل اسمك الكريم">
                 </div>
                 <div class="form-group">
                     <label>رقم الهاتف</label>
-                    <input type="tel" id="m-phone" required placeholder="مثال: 36xxxxxx">
+                    <input type="tel" id="m-phone" required placeholder="مثال: 36xxxxxx أو 46xxxxxx">
                 </div>
                 <div class="form-group">
-                    <label>نوع الجهاز والموديل</label>
-                    <input type="text" id="m-device" required placeholder="مثال: آيفون 13 برو">
+                    <label>نوع الجهاز ورقم الموديل</label>
+                    <input type="text" id="m-device" required placeholder="مثال: iPhone 13 Pro Max">
                 </div>
                 <div class="form-group">
-                    <label>وصف العطل</label>
-                    <textarea id="m-desc" rows="3" required placeholder="اشرح المشكلة باختصار..."></textarea>
+                    <label>وصف العطل باختصار</label>
+                    <textarea id="m-desc" rows="3" required placeholder="اشرح المشكلة التقنية..."></textarea>
                 </div>
-                <button type="submit" class="btn-submit">إرسال طلب الصيانة</button>
+                <button type="submit" class="btn-submit">تأكيد وإرسال طلب الصيانة</button>
             </form>
         </div>
     </div>
 
-    <!-- نافذة تسجيل الدخول / إنشاء حساب (إجبارية) -->
+    <!-- صفحة طلبات الزبون الخاصة -->
+    <div id="my-orders-page" class="page-section container">
+        <div class="my-orders-box">
+            <h2 style="margin-bottom: 1.5rem;"><i class="fa-solid fa-box-open" style="color:var(--primary)"></i> طلباتي السابقة ومتابعتها</h2>
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>رقم الطلب</th>
+                            <th>التاريخ</th>
+                            <th>المنتجات</th>
+                            <th>المبلغ الكلي</th>
+                            <th>طريقة الدفع</th>
+                            <th>الحالة</th>
+                        </tr>
+                    </thead>
+                    <tbody id="customer-orders-body"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة تسجيل الدخول / حساب الزبون -->
     <div class="modal-overlay" id="auth-modal">
         <div class="auth-card">
             <div class="auth-header">
-                <h3 id="auth-title">إنشاء حساب جديد أو تسجيل الدخول</h3>
+                <h3>تسجيل الدخول / إنشاء حساب</h3>
                 <button class="close-modal" onclick="closeAuthModal()">&times;</button>
             </div>
-            <form onsubmit="handleAuth(event)" style="display: flex; flex-direction: column; gap: 12px;">
+            <form onsubmit="handleAuth(event)" style="display: flex; flex-direction: column; gap: 14px;">
                 <div class="form-group">
                     <label>اسم المستخدم</label>
                     <input type="text" id="auth-username" required placeholder="ادخل اسمك الكامل">
@@ -315,14 +434,14 @@
                 </div>
                 <div class="form-group">
                     <label>كلمة المرور</label>
-                    <input type="password" id="auth-password" required placeholder="كلمة المرور الخاصة بك">
+                    <input type="password" id="auth-password" required placeholder="كلمة المرور">
                 </div>
-                <button type="submit" class="btn-submit">دخول / تسجيل وحفظ</button>
+                <button type="submit" class="btn-submit">دخول وتوثيق الحساب</button>
             </form>
         </div>
     </div>
 
-    <!-- سلة المشتريات والدفع -->
+    <!-- سلة المشتريات وإتمام الطلب -->
     <div class="modal-overlay cart-overlay" id="cart-overlay" onclick="if(event.target === this) toggleCart()">
         <div class="cart-drawer">
             <div class="cart-header">
@@ -336,18 +455,19 @@
             </div>
 
             <form class="checkout-form" onsubmit="checkout(event)">
-                <h4 style="font-size:0.95rem; margin-bottom: 2px;">معلومات الدفع والتوصيل</h4>
-                <div class="form-group" style="margin-bottom: 6px;">
+                <h4 style="font-size:0.95rem; margin-bottom: 4px;">معلومات الدفع والتوصيل</h4>
+                
+                <div class="form-group" style="margin-bottom: 8px;">
                     <label style="font-size: 0.85rem;">طريقة الدفع</label>
-                    <select id="c-payment" onchange="handlePaymentSelection()" required style="padding: 7px; font-size: 0.85rem;">
+                    <select id="c-payment" onchange="handlePaymentSelection()" required style="padding: 8px; font-size: 0.85rem;">
                         <option value="تطبيق بنكيلي">الدفع عبر التطبيق المصرفي</option>
                         <option value="عند الاستلام">الدفع عند الاستلام (يشترط عربون 100 أوقية)</option>
                     </select>
                 </div>
 
-                <div class="form-group" id="bank-app-group" style="margin-bottom: 6px;">
-                    <label style="font-size: 0.85rem;">اختر التطبيق المصرفي المحول منه</label>
-                    <select id="c-bank-app" onchange="updateBankNumber()" style="padding: 7px; font-size: 0.85rem;">
+                <div class="form-group" id="bank-app-group" style="margin-bottom: 8px;">
+                    <label style="font-size: 0.85rem;">اختر التطبيق المحول منه</label>
+                    <select id="c-bank-app" onchange="updateBankNumber()" style="padding: 8px; font-size: 0.85rem;">
                         <option value="بنكيلي (BANKILY)">بنكيلي (BANKILY)</option>
                         <option value="السداد (SEDAD)">السداد (SEDAD)</option>
                         <option value="مصرفي (MASRVI)">مصرفي (MASRVI)</option>
@@ -356,27 +476,28 @@
                 </div>
 
                 <div class="bank-info-box" id="bank-info-box">
-                   يرجى تحويل المبلغ إلى رقمنا الخاص بالتطبيق: <span id="my-shop-phone" style="font-size: 0.95rem;">36123456</span>
+                   يرجى تحويل المبلغ إلى رقمنا الخاص بالتطبيق: <span id="my-shop-phone" style="font-size: 0.95rem;">26396688</span>
                 </div>
 
-                <div class="form-group" id="sender-phone-group" style="margin-bottom: 6px;">
+                <div class="form-group" id="sender-phone-group" style="margin-bottom: 8px;">
                     <label style="font-size: 0.85rem;">رقم هاتفك الذي أرسلت منه المبلغ</label>
-                    <input type="tel" id="c-sender-phone" style="padding: 7px; font-size: 0.85rem;" placeholder="رقم المرسل">
+                    <input type="tel" id="c-sender-phone" style="padding: 8px; font-size: 0.85rem;" placeholder="رقم المرسل">
                 </div>
 
-                <div class="form-group" id="receipt-group" style="margin-bottom: 6px;">
+                <div class="form-group" id="receipt-group" style="margin-bottom: 8px;">
                     <label style="font-size: 0.85rem;">رفع وصل الدفع / التحويل</label>
                     <input type="file" id="c-receipt" accept="image/*" style="padding: 4px; font-size: 0.8rem;">
                 </div>
 
-                <button type="submit" class="btn-submit" style="padding: 9px; font-size: 0.9rem; margin-top: 5px;">تأكيد وإرسال الطلب</button>
+                <button type="submit" class="btn-submit" style="padding: 10px; font-size: 0.95rem; margin-top: 5px;">تأكيد وإرسال الطلب</button>
             </form>
         </div>
     </div>
 
+    <!-- الفوتر الاحترافي -->
     <footer>
         <p>جميع الحقوق محفوظة &copy; 2026 الحافظ فون - نواكشوط، موريتانيا.</p>
-        <p style="margin-top: 8px;"><a href="admin.html"><i class="fa-solid fa-lock"></i> لوحة الإدارة</a></p>
+        <p style="margin-top: 10px;"><a href="admin.html"><i class="fa-solid fa-lock"></i> لوحة تحكم الإدارة الحصرية</a></p>
     </footer>
 
     <script>
@@ -388,10 +509,10 @@
         };
 
         let products = JSON.parse(localStorage.getItem('hafiz_products')) || [
-            { id: 1, name: "iPhone 15 Pro Max", price: 42000, category: "الهواتف الذكية", desc: "سعة 256 جيجابايت، ضمان أصلي", img: "https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=500&q=80" },
-            { id: 2, name: "Samsung Galaxy S24 Ultra", price: 39000, category: "الهواتف الذكية", desc: "ذاكرة 512 جيجابايت، كاميرا خارقة", img: "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=500&q=80" },
-            { id: 3, name: "AirPods Pro الجيل الثاني", price: 4500, category: "السماعات وملحقاتها", desc: "عزل ضوضاء نشط، صوت نقي", img: "https://images.unsplash.com/photo-1600294037681-c80b4cb5b434?auto=format&fit=crop&w=500&q=80" },
-            { id: 4, name: "شاحن سريع أصلي 65W", price: 1200, category: "الشواحن والكابلات", desc: "شحن فائق السرعة وآمن", img: "https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=500&q=80" }
+            { id: 1, name: "iPhone 15 Pro Max", price: 42000, category: "الهواتف الذكية", desc: "سعة 256 جيجابايت، ضمان أصلي شامل", img: "https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=500&q=80" },
+            { id: 2, name: "Samsung Galaxy S24 Ultra", price: 39000, category: "الهواتف الذكية", desc: "ذاكرة 512 جيجابايت، كاميرا خارقة بالذكاء الاصطناعي", img: "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=500&q=80" },
+            { id: 3, name: "AirPods Pro الجيل الثاني", price: 4500, category: "السماعات وملحقاتها", desc: "عزل ضوضاء نشط، صوت نقي وبطارية طويلة الأمد", img: "https://images.unsplash.com/photo-1600294037681-c80b4cb5b434?auto=format&fit=crop&w=500&q=80" },
+            { id: 4, name: "شاحن سريع أصلي 65W", price: 1200, category: "الشواحن والكابلات", desc: "شحن فائق السرعة آمن ومتوافق مع كافة الأجهزة", img: "https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=500&q=80" }
         ];
 
         let cart = [];
@@ -400,30 +521,27 @@
 
         function updateAuthUI() {
             const area = document.getElementById('user-info-area');
+            const ordersNav = document.getElementById('nav-orders');
             if (currentUser) {
-                area.innerHTML = `<div class="user-badge"><i class="fa-solid fa-user-check"></i> ${currentUser.username} <a onclick="logout()" style="color:#ef4444; margin-right:8px; cursor:pointer;">خروج</a></div>`;
+                area.innerHTML = `<div class="user-badge"><i class="fa-solid fa-user-check"></i> ${currentUser.username} <a onclick="logout()" style="color:#ef4444; margin-right:6px; cursor:pointer;">خروج</a></div>`;
+                ordersNav.style.display = 'inline';
             } else {
-                area.innerHTML = `<button class="auth-btn" onclick="openAuthModal()"><i class="fa-solid fa-user"></i> تسجيل الدخول / حساب</button>`;
+                area.innerHTML = `<button class="auth-btn" onclick="openAuthModal()"><i class="fa-solid fa-user"></i> حسابي</button>`;
+                ordersNav.style.display = 'none';
             }
         }
 
-        function openAuthModal() {
-            document.getElementById('auth-modal').style.display = 'flex';
-        }
-
-        function closeAuthModal() {
-            document.getElementById('auth-modal').style.display = 'none';
-        }
+        function openAuthModal() { document.getElementById('auth-modal').style.display = 'flex'; }
+        function closeAuthModal() { document.getElementById('auth-modal').style.display = 'none'; }
 
         function handleAuth(e) {
             e.preventDefault();
-            const username = document.getElementById('auth-username').value;
-            const phone = document.getElementById('auth-phone').value;
-            const password = document.getElementById('auth-password').value;
-
-            currentUser = { username, phone };
+            currentUser = {
+                username: document.getElementById('auth-username').value,
+                phone: document.getElementById('auth-phone').value
+            };
             localStorage.setItem('hafiz_current_user', JSON.stringify(currentUser));
-            alert('تم تسجيل الدخول بنجاح يا ' + username);
+            alert('أهلاً بك يا ' + currentUser.username + '! تم تسجيل الدخول بنجاح.');
             closeAuthModal();
             updateAuthUI();
         }
@@ -432,21 +550,27 @@
             localStorage.removeItem('hafiz_current_user');
             currentUser = null;
             updateAuthUI();
-            alert('تم تسجيل الخروج بنجاح');
+            switchTab('store');
+            alert('تم تسجيل الخروج بنجاح.');
         }
 
         function switchTab(tab) {
-            document.getElementById('store-page').classList.remove('active-page');
-            document.getElementById('maintenance-page').classList.remove('active-page');
-            document.getElementById('nav-store').classList.remove('active');
-            document.getElementById('nav-maint').classList.remove('active');
+            ['store-page', 'maintenance-page', 'my-orders-page'].forEach(id => document.getElementById(id).classList.remove('active-page'));
+            ['nav-store', 'nav-maint', 'nav-orders'].forEach(id => {
+                const el = document.getElementById(id);
+                if(el) el.classList.remove('active');
+            });
 
             if (tab === 'store') {
                 document.getElementById('store-page').classList.add('active-page');
                 document.getElementById('nav-store').classList.add('active');
-            } else {
+            } else if (tab === 'maintenance') {
                 document.getElementById('maintenance-page').classList.add('active-page');
                 document.getElementById('nav-maint').classList.add('active');
+            } else if (tab === 'my-orders') {
+                document.getElementById('my-orders-page').classList.add('active-page');
+                document.getElementById('nav-orders').classList.add('active');
+                renderCustomerOrders();
             }
         }
 
@@ -464,18 +588,20 @@
             renderProducts();
         }
 
-        function renderProducts() {
+        function renderProducts(filteredList = null) {
             const container = document.getElementById('products-container');
-            const filtered = currentCategory === 'الكل' ? products : products.filter(p => (p.category || 'أخرى') === currentCategory);
+            const list = filteredList || (currentCategory === 'الكل' ? products : products.filter(p => (p.category || 'أخرى') === currentCategory));
 
-            if (filtered.length === 0) {
-                container.innerHTML = `<p style="grid-column: 1/-1; text-align:center; color: var(--gray);">لا توجد منتجات حالياً.</p>`;
+            if (list.length === 0) {
+                container.innerHTML = `<p style="grid-column: 1/-1; text-align:center; color: var(--gray);">لا توجد منتجات مطابقة لبحثك.</p>`;
                 return;
             }
 
-            container.innerHTML = filtered.map(p => `
+            container.innerHTML = list.map(p => `
                 <div class="product-card">
-                    <img src="${p.img}" alt="${p.name}" class="product-img">
+                    <div class="product-img-wrapper">
+                        <img src="${p.img}" alt="${p.name}" class="product-img">
+                    </div>
                     <div class="product-info">
                         <span class="product-category-tag">${p.category || 'أخرى'}</span>
                         <h3 class="product-title">${p.name}</h3>
@@ -489,9 +615,15 @@
             `).join('');
         }
 
+        function handleSearch() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            const filtered = products.filter(p => p.name.toLowerCase().includes(query) || p.desc.toLowerCase().includes(query) || (p.category && p.category.toLowerCase().includes(query)));
+            renderProducts(filtered);
+        }
+
         function toggleCart() {
             if (!currentUser) {
-                alert('يجب تسجيل الدخول أو إنشاء حساب أولاً لفتح السلة وإتمام الشراء!');
+                alert('عذراً، يجب تسجيل الدخول أو إنشاء حساب أولاً لفتح السلة وإتمام الشراء.');
                 openAuthModal();
                 return;
             }
@@ -501,7 +633,7 @@
 
         function addToCart(id) {
             if (!currentUser) {
-                alert('عذراً، يجب تسجيل الدخول أولاً لتتمكن من إضافة المنتجات إلى السلة.');
+                alert('يجب تسجيل الدخول أولاً لتتمكن من إضافة المنتجات للسلة.');
                 openAuthModal();
                 return;
             }
@@ -521,7 +653,7 @@
             const container = document.getElementById('cart-items');
             
             if (cart.length === 0) {
-                container.innerHTML = '<p style="text-align:center; color: var(--gray);">السلة فارغة</p>';
+                container.innerHTML = '<p style="text-align:center; color: var(--gray);">السلة فارغة حالياً</p>';
                 document.getElementById('cart-total-price').innerText = '0 أوقية';
                 return;
             }
@@ -560,7 +692,7 @@
 
         function updateBankNumber() {
             const selectedApp = document.getElementById('c-bank-app').value;
-            document.getElementById('my-shop-phone').innerText = myAppPhones[selectedApp] || "36123456";
+            document.getElementById('my-shop-phone').innerText = myAppPhones[selectedApp] || "26396688";
         }
 
         function checkout(e) {
@@ -591,7 +723,7 @@
                 orders.unshift(newOrder);
                 localStorage.setItem('hafiz_orders', JSON.stringify(orders));
 
-                alert('تم إرسال طلبك بنجاح! سيتم التحقق من الطلب والتواصل معك قريباً.');
+                alert('تم إرسال طلبك بنجاح! شكراً لثقتكم بالحافظ فون.');
                 cart = [];
                 updateCartUI();
                 toggleCart();
@@ -628,9 +760,30 @@
             maintList.unshift(maint);
             localStorage.setItem('hafiz_maint', JSON.stringify(maintList));
 
-            alert('تم استلام طلب الصيانة برقم: ' + maint.id);
+            alert('تم استلام طلب الصيانة برقم المرجع: ' + maint.id + ' وسنتصل بك قريباً.');
             e.target.reset();
             switchTab('store');
+        }
+
+        function renderCustomerOrders() {
+            const body = document.getElementById('customer-orders-body');
+            const orders = (JSON.parse(localStorage.getItem('hafiz_orders')) || []).filter(o => currentUser && o.customerPhone === currentUser.phone);
+
+            if (orders.length === 0) {
+                body.innerHTML = `<tr><td colspan="6" style="text-align:center; color: var(--gray);">ليس لديك أي طلبات مسجلة حتى الآن.</td></tr>`;
+                return;
+            }
+
+            body.innerHTML = orders.map(o => `
+                <tr>
+                    <td><strong>${o.id}</strong></td>
+                    <td>${o.date}</td>
+                    <td>${o.items.map(i => i.name).join(', ')}</td>
+                    <td><strong>${o.totalAmount.toLocaleString()} أوقية</strong></td>
+                    <td>${o.paymentType}</td>
+                    <td><span class="badge">${o.status}</span></td>
+                </tr>
+            `).join('');
         }
 
         updateAuthUI();
